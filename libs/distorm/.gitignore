@@ -1,0 +1,11 @@
+*.lib
+*.dll
+*.exp
+*.ilk
+*.pdb
+*.idb
+
+make/win32/.vs
+
+make/win32/clib
+make/win32/dll
