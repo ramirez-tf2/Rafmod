@@ -124,8 +124,8 @@ class ExtensionConfig(object):
 #      cxx.defines += ['NDEBUG']
 
     # Debugging
-#    if builder.options.debug == '1':
-#      cxx.defines += ['DEBUG', '_DEBUG']
+    if builder.options.debug == '1':
+      cxx.defines += ['DEBUG', '_DEBUG']
     
     # Experimental features
     if builder.options.experimental == '1':
