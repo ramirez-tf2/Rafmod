@@ -28,6 +28,7 @@ sourceFiles += [
 ]
 
 sourceFiles += [
+  'src/mathlib_libm_linker_fix.cpp',
   'src/common.cpp',
   'src/concolor.cpp',
   'src/convar_restore.cpp',
