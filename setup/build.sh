@@ -20,8 +20,8 @@ rm -r build
 mkdir build
 cd build
 
-#Set our compiler to gcc/g++, then run the configure.py:
-CC=gcc CXX=g++ python3 ../configure.py --hl2sdk-root="$SDK_LOCATION" --sm-path="$SDK_LOCATION/sourcemod" --mms-path="$SDK_LOCATION/mmsource-1.10" --enable-optimize --enable-debug
+#Set our compiler to clang/clang++, then run the configure.py:
+CC=clang CXX=clang++ python3 ../configure.py --hl2sdk-root="$SDK_LOCATION" --sm-path="$SDK_LOCATION/sourcemod" --mms-path="$SDK_LOCATION/mmsource-1.10"  --enable-debug --enable-optimize --exclude-mods-debug --exclude-mods-visualize
 
 #Then start the build:
 ambuild
