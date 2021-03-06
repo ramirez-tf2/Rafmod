@@ -1,0 +1,118 @@
+# vim: set ts=8 sts=2 sw=2 tw=99 et ft=python:
+import os
+
+# This is where the files will be output to
+# package is the default
+builder.SetBuildFolder('package')
+
+# Add any folders you need to this list
+folder_list = [
+  'addons/sourcemod/extensions',
+#  'addons/sourcemod/scripting',
+#  'addons/sourcemod/scripting/include',
+  'addons/sourcemod/gamedata',
+  'addons/sourcemod/gamedata/sigsegv',
+#  'addons/sourcemod/configs',
+  'custom/sigsegv/resource',
+  'custom/sigsegv/scripts',
+]
+
+# Create the distribution folder hierarchy.
+folder_map = {}
+for folder in folder_list:
+  norm_folder = os.path.normpath(folder)
+  folder_map[folder] = builder.AddFolder(norm_folder)
+
+# Do all straight-up file copies from the source tree.
+def CopyFiles(src, dest, files):
+  if not dest:
+    dest = src
+  dest_entry = folder_map[dest]
+  for source_file in files:
+    source_path = os.path.join(builder.sourcePath, src, source_file)
+    builder.AddCopy(source_path, dest_entry)
+
+# Include files 
+#CopyFiles('include', 'addons/sourcemod/scripting/include',
+#  [
+#    'sample.inc',
+#  ]
+#)
+
+# GameData files
+CopyFiles('gamedata/sigsegv', 'addons/sourcemod/gamedata/sigsegv',
+  [
+    'datamaps.txt',
+    'globals.txt',
+    'NextBotKnownEntity.txt',
+    'NextBotContextualQueryInterface.txt',
+    'NextBotEventResponderInterface.txt',
+    'NextBotInterface.txt',
+    'NextBotBodyInterface.txt',
+    'NextBotLocomotionInterface.txt',
+    'NextBotVisionInterface.txt',
+    'NextBotIntentionInterface.txt',
+    'NextBotBehavior.txt',
+    'NextBotPlayer.txt',
+    'NextBotPlayerBody.txt',
+    'NextBotPlayerLocomotion.txt',
+    'NextBotPath.txt',
+    'NextBotPathFollow.txt',
+    'NextBotChasePath.txt',
+    'NextBotManager.txt',
+    'population.txt',
+    'nav.txt',
+    'tfplayer.txt',
+    'tfbot.txt',
+    'tfbot_body.txt',
+    'tfbot_locomotion.txt',
+    'tfbot_vision.txt',
+    'tfbot_behavior.txt',
+    'misc.txt',
+    'debugoverlay.txt',
+    'client.txt',
+    'convars.txt',
+  ]
+)
+
+# Config files
+#CopyFiles('configs', 'addons/sourcemod/configs',
+#  [
+#    'configfile.cfg',
+#  ]
+#)
+
+# Resource files
+CopyFiles('resource', 'custom/sigsegv/resource',
+  [
+    'sigsegv_events.res',
+  ]
+)
+
+# Script files
+CopyFiles('scripts', 'custom/sigsegv/scripts',
+  [
+    'sigsegv_sound_overrides.txt',
+  ]
+)
+
+# Copy binaries.
+for cxx_task in Extension.extensions:
+  src = os.path.join('..', cxx_task.binary.path)
+  dst = os.path.join('addons', 'sourcemod', 'extensions', os.path.basename(cxx_task.binary.path))
+  builder.AddCommand(
+    inputs  = [ cxx_task.binary ],
+    argv    = [ 'cp', '--remove-destination', src, dst ],
+    outputs = [ dst ],
+  )
+#  builder.AddCopy(cxx_task.binary, folder_map['addons/sourcemod/extensions'])
+
+# Copy libstrcompat (Linux only)
+if builder.target.platform == 'linux':
+  src = os.path.join(builder.sourcePath, 'libs', 'strcompat', 'libstrcompat.so')
+  dst = os.path.join('addons', 'sourcemod', 'extensions', 'libstrcompat.so')
+  builder.AddCommand(
+    inputs  = [ src ],
+    argv    = [ 'cp', '--remove-destination', src, dst ],
+    outputs = [ dst ],
+  )

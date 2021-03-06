@@ -1,0 +1,41 @@
+[submodule "libs/capstone"]
+	path                   = libs/capstone
+	url                    = https://github.com/sigsegv-mvm/capstone.git
+	branch                 = sigsegv-mvm
+	fetchRecurseSubmodules = true
+#	ignore                 = ???
+
+[submodule "libs/distorm"]
+	path                   = libs/distorm
+	url                    = https://github.com/sigsegv-mvm/distorm.git
+	branch                 = sigsegv-mvm
+	fetchRecurseSubmodules = true
+#	ignore                 = ???
+
+[submodule "libs/udis86"]
+	path                   = libs/udis86
+	url                    = https://github.com/sigsegv-mvm/udis86.git
+	branch                 = sigsegv-mvm
+	fetchRecurseSubmodules = true
+#	ignore                 = ???
+
+[submodule "libs/lz4"]
+	path                   = libs/lz4
+	url                    = https://github.com/Cyan4973/lz4.git
+	branch                 = master
+	fetchRecurseSubmodules = true
+#	ignore                 = ???
+
+[submodule "libs/lodepng"]
+	path                   = libs/lodepng
+	url                    = https://github.com/lvandeve/lodepng.git
+	branch                 = master
+	fetchRecurseSubmodules = true
+#	ignore                 = ???
+
+[submodule "libs/fmt"]
+	path                   = libs/fmt
+	url                    = https://github.com/fmtlib/fmt.git
+	branch                 = master
+	fetchRecurseSubmodules = true
+#	ignore                 = ???
